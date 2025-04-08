@@ -4,7 +4,9 @@ const { Pool } = pg.default;
 
 const connectionPool = new Pool({
   connectionString:
-    "postgresql://your-db-username:your-db-password@localhost:5432/your-db-name",
+    "postgresql://postgres:postgres@localhost:5432/build-assignment",
 });
+
+
 
 export default connectionPool;
