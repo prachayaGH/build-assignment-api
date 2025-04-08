@@ -11,7 +11,7 @@ app.get("/test", (req, res) => {
 });
 
 app.post("/assignments", async (req, res) => {
-  try {
+ 
     const newAssignment = {
       ...req.body,
       created_at: new Date(),
@@ -19,20 +19,22 @@ app.post("/assignments", async (req, res) => {
       published_at: new Date(),
     };
 
-   
-    await connectionPool.query(
-      `INSERT INTO hackhour (title, content, category, created_at, updated_at, published_at)
-       VALUES ($1, $2, $3, $4, $5, $6)`,
-      [
-        newAssignment.title,
-        newAssignment.content,
-        newAssignment.category,
-        newAssignment.created_at,
-        newAssignment.updated_at,
-        newAssignment.published_at,
-      ]
-    );
-
+    try {
+      await connectionPool.query(
+        `insert into assignments (user_id,title,content,category,length,status,created_at,updated_at,published_at)
+        values ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+        [
+          1,
+          newAssignment.title,
+          newAssignment.content,
+          newAssignment.category,
+          newAssignment.length,
+          newAssignment.status,
+          newAssignment.created_at,
+          newAssignment.updated_at,
+          newAssignment.published_at,
+        ]
+      )
     return res.status(201).json({ "message": "Created assignment successfully" });
   } catch (error) {
     console.error("Error creating assignment:", error);
